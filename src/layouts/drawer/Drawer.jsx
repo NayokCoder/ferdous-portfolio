@@ -1,63 +1,48 @@
 "use client";
+import React from "react";
 
-import React, { useState, useEffect } from "react";
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
-import { Separator } from "./separator";
-import { products } from "@/json/product";
+const Drawer = ({ isOpen, onClose, icon }) => {
+  return (
+    <>
+      <div className="drawer drawer-end">
+        <input
+          id="my-drawer-5"
+          type="checkbox"
+          className="drawer-toggle"
+          checked={isOpen}
+          onChange={() => {}}
+        />
+        <div className="drawer-content">
+          <label htmlFor="my-drawer-5" className="drawer-button">
+            <button
+              onClick={onClose}
+              className="border border-border hover:bg-accent hover:text-accent-foreground rounded-full w-12 h-12 flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg mb-5"
+            >
+              <span className="text-2xl mx-auto text-muted-foreground flex items-center justify-center">
+                {icon}
+              </span>
+            </button>
+          </label>
+        </div>
+        <div className="drawer-side z-50">
+          <label
+            htmlFor="my-drawer-5"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+            onClick={onClose}
+          ></label>
+          <ul className="menu bg-base-200 min-h-full w-80 p-4">
+            <li>
+              <a>Sidebar Item 1</a>
+            </li>
+            <li>
+              <a>Sidebar Item 2</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default function SmoothDrawer() {
-  const [items, setItems] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
-  const [shipping] = useState(5);
-  const [tax, setTax] = useState(0);
-  const [total, setTotal] = useState(0);
-
-  const calculateSummary = () => {
-    let sub = 0;
-    items.forEach((item) => {
-      sub += item.price * item.quantity;
-    });
-
-    const calculatedTax = sub * 0.1;
-    const grandTotal = sub + shipping + calculatedTax;
-
-    setSubtotal(sub);
-    setTax(calculatedTax);
-    setTotal(grandTotal);
-  };
-
-  useEffect(() => {
-    calculateSummary();
-  }, [items]);
-
-  useEffect(() => {
-    const randomItems = Array.from({ length: 5 }, (_, index) => {
-      const randomIndex = Math.floor(Math.random() * products.length);
-      return {
-        id: index,
-        image: products[randomIndex].image,
-        title: products[randomIndex].title,
-        price: products[randomIndex].price,
-        quantity: 1,
-      };
-    });
-
-    setItems(randomItems);
-  }, []);
-
-  const increaseQuantity = (id) => {
-    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)));
-  };
-
-  const decreaseQuantity = (id) => {
-    setItems((prev) => prev.map((item) => (item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item)));
-  };
-
-  const removeItem = (id) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  return <Sheet></Sheet>;
-}
+export default Drawer;

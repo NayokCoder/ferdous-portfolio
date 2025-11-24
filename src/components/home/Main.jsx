@@ -17,8 +17,7 @@ import { ThemeToggle } from "../ThemeToggle";
 import Project from "../Projects/Project";
 import Contact from "../contact/Contact";
 import Course from "../course/Course";
-import { DrawerTrigger } from "../ui/sideBar/drawer";
-import { Button } from "../ui/button";
+
 const Main = () => {
   const parentRef = useRef(null);
   const nav = [
@@ -79,14 +78,10 @@ const Main = () => {
             {/* <ThemToggle /> */}
             <ThemeToggle />
           </div>
-          <DrawerTrigger asChild>
-            <Button variant="outline">
-              <button className="border border-border hover:bg-accent hover:text-accent-foreground rounded-full w-12 h-12 flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg mb-5">
-                <span className="text-2xl mx-auto text-muted-foreground  flex items-center justify-center">{dash[0].icon}</span>
-              </button>
-            </Button>
-          </DrawerTrigger>
 
+          {/* <button className="border border-border hover:bg-accent hover:text-accent-foreground rounded-full w-12 h-12 flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg mb-5">
+            <span className="text-2xl mx-auto text-muted-foreground  flex items-center justify-center">{dash[0].icon}</span>
+          </button> */}
           <Scrollspy offset={50} targetRef={parentRef} className="flex flex-col items-center gap-5 ">
             {nav.map((item) => (
               <button key={item.id} variant="outline" data-scrollspy-anchor={item.id} className="data-[active=true]:bg-secondary-foreground data-[active=true]:text-secondary rounded-full w-12 h-12 border border-border hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg">
